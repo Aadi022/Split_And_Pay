@@ -6,9 +6,10 @@ const cors= require("cors");
 const bodyparser= require("body-parser");
 const JWT_SECRET= require("./config");
 
+//middlewares
 app.use(cors());
 app.use(bodyparser.json());  //Helps in parsing json objects
-app.use(mainrouter);  //All routes coming to /api/vi will go to mainrouter
+app.use(mainrouter);  //All routes will be sent to mainrouter
 
 
 
