@@ -59,26 +59,92 @@ The server will run on `http://localhost:3000`.
 - **Sign Up**  
   `POST /user/signup`  
   Creates a new user.
+  - **Body**:
+    ```json
+    {
+      "name": "Aarav Singh",
+      "email": "aarav.singh@example.com",
+      "mobile": "9876543210",
+      "username": "aarav_singh",
+      "password": "StrongPassword123"
+    }
+    ```
 
 - **Sign In**  
   `POST /user/signin`  
   Logs in a user and returns a JWT token.
+  - **Body**:
+    ```json
+    {
+      "username": "aarav_singh",
+      "email": "aarav.singh@example.com",
+      "password": "StrongPassword123"
+    }
+    ```
 
 ### Group Endpoints
 
 - **Create Group**  
   `POST /group/creategroup`  
   Create a new group with a passcode.
+  - **Body**:
+    ```json
+    {
+      "name": "Vacation Group",
+      "passcode": "vacation2024"
+    }
+    ```
 
 - **Join Group**  
   `POST /group/enter`  
   Enter an existing group using a passcode.
+  - **Body**:
+    ```json
+    {
+      "name": "Vacation Group",
+      "passcode": "vacation2024"
+    }
+    ```
 
 ### Transaction Endpoints
 
 - **Add Expense**  
   `POST /transaction/addExpense`  
   Add a new expense to a group using Equal Split, Exact Split, or Percentage Split methods.
+  - **Body (Equal Split)**:
+    ```json
+    {
+      "groupName": "Vacation Group",
+      "totalAmount": 2000,
+      "splitMethod": "equal"
+    }
+    ```
+  - **Body (Exact Split)**:
+    ```json
+    {
+      "groupName": "Vacation Group",
+      "totalAmount": 2000,
+      "splitMethod": "exact",
+      "splitDetails": [
+        { "user": "aarav_singh", "amount": 1000 },
+        { "user": "priya_kapoor", "amount": 500 },
+        { "user": "rahul_verma", "amount": 500 }
+      ]
+    }
+    ```
+  - **Body (Percentage Split)**:
+    ```json
+    {
+      "groupName": "Vacation Group",
+      "totalAmount": 2000,
+      "splitMethod": "percentage",
+      "splitDetails": [
+        { "user": "aarav_singh", "percentage": 50 },
+        { "user": "priya_kapoor", "percentage": 25 },
+        { "user": "rahul_verma", "percentage": 25 }
+      ]
+    }
+    ```
 
 ### Balance Sheet Endpoints
 
@@ -132,3 +198,4 @@ The server will run on `http://localhost:3000`.
 - Input validation using Zod with middlewares like `register.js` and `login.js` for validating user inputs during registration and login.
 - Password hashing using bcrypt.js to securely store user credentials.
 - PDF generation for both individual and group balance sheets using PDF.co API.
+
